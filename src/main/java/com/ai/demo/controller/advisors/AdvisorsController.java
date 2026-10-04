@@ -89,4 +89,23 @@ class AdvisorsController {
                 .stream()
                 .content();
     }
+
+    @GetMapping("/chained-advisors")
+    String chainedAdvisors(@RequestParam String role, @RequestParam String question){
+        SimpleLoggerAdvisor loggingAdvisor = SimpleLoggerAdvisor
+                .builder()
+                .order(3)
+                .requestToString(request -> "SENDING PROMPT: " + request.prompt().getContents())
+                .responseToString(response -> "GOT BACK: " + response.getResult().getOutput().getText())
+                .build();
+
+        return chatClient.prompt()
+                .user(question)
+                .advisors(List.of(
+                        new TimingAdvisor(0),
+                        new CustomAdvisor(role, 1),
+                        new DisclaimerAdvisor(2),
+                        loggingAdvisor))
+                .call().content();
+    }
 }
