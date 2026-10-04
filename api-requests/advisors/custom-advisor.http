@@ -1,0 +1,4 @@
+### GET request to example server
+GET http://localhost:8081/api/advisors/custom-advisor?role=Senior Java Engineer&question=What is java?
+
+###

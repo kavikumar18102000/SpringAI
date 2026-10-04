@@ -1,0 +1,3 @@
+### GET request to example server
+GET http://localhost:8081/api/ai/conversation-history?followUpQuestion=Give me an example
+###

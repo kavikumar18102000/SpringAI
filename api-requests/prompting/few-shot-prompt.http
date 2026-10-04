@@ -1,0 +1,4 @@
+### GET request to example server
+GET http://localhost:8081/api/prompting/few-shot-prompt?review = It's boring!
+
+###

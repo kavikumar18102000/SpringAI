@@ -1,0 +1,4 @@
+### GET request to example server
+GET http://localhost:8081/api/advisors/stream-timing-advisor?question=What is concurrency,explain in 2 lines?
+
+###

@@ -1,0 +1,37 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: spring_ai_demo
+
+  ai:
+    openai:
+#      open AI config
+#      api-key: ${OPENAI_API_KEY}
+#      chat:
+#        model: ${OPENAI_MODEL}
+#        max-tokens: 25
+#        max-completion-tokens: 30
+
+#      GROQ AI config(uses OpenAI dependency)
+      api-key: ${GROQ_API_KEY}
+      base-url: ${GROQ_BASE_URL}
+      chat:
+        model: ${GROQ_MODEL}
+
+#    google:
+#      genai:
+##        api-key: ${GOOGLE_API_KEY}
+#        chat:
+#          model: ${GOOGLE_AI_MODEL}
+
+#enabling logging for Spring AI
+logging:
+  level:
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
