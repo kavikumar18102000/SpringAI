@@ -1,0 +1,7 @@
+### GET request to example server
+GET http://localhost:8081/api/memory/first-chat?conversationId=abc&message=my name is kavi
+
+#GET http://localhost:8081/api/memory/first-chat?conversationId=abc&message=what is my name?
+
+#GET http://localhost:8081/api/memory/first-chat?conversationId=xyz&message=what is my name?
+###
