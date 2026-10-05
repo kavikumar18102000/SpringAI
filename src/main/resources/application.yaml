@@ -6,6 +6,13 @@ spring:
     name: spring_ai_demo
 
   ai:
+    #config for persistent chat memory
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+
     openai:
 #      open AI config
 #      api-key: ${OPENAI_API_KEY}
@@ -25,6 +32,11 @@ spring:
 ##        api-key: ${GOOGLE_API_KEY}
 #        chat:
 #          model: ${GOOGLE_AI_MODEL}
+
+#config for persistent chat memory
+  datasource:
+    url: jdbc:h2:file:./data/db/chatmemory;AUTO_SERVER=TRUE #stores the data in a file, and reads it when server restarts.
+    driver-class-name: org.h2.Driver
 
 #enabling logging for Spring AI
 logging:
