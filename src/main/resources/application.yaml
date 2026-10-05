@@ -6,7 +6,7 @@ spring:
     name: spring_ai_demo
 
   ai:
-    #config for persistent chat memory
+    #config for persistent chat memory, creates a 'spring_ai_chat_memory' table in the DB by default if not exists.
     chat:
       memory:
         repository:
@@ -33,16 +33,29 @@ spring:
 #        chat:
 #          model: ${GOOGLE_AI_MODEL}
 
-#config for persistent chat memory
-  datasource:
-    url: jdbc:h2:file:./data/db/chatmemory;AUTO_SERVER=TRUE #stores the data in a file, and reads it when server restarts.
-    driver-class-name: org.h2.Driver
-    username: root
-    password:
+#h2-database config for persistent chat memory
+#  datasource:
+#    url: jdbc:h2:file:./data/db/chatmemory;AUTO_SERVER=TRUE #stores the data in a file, and reads it when server restarts.
+#    driver-class-name: org.h2.Driver
+#    username: root
+#    password:
+#
+#  h2:
+#    console:
+#      enabled: true
 
-  h2:
-    console:
-      enabled: true
+#PostgreSQL config for persistent chat memory
+  datasource:
+    url: jdbc:postgresql://localhost:5445/springai
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
 
 #enabling logging for Spring AI
 logging:

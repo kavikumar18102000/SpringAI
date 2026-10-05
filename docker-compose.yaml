@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: spring_ai_demo
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: springai
+
+    ports:
+      - "5445:5432"
+
+    volumes:
+      - springai_pgdata:/var/lib/postgresql
+
+volumes:
+  springai_pgdata:
