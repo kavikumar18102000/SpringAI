@@ -1,0 +1,4 @@
+### GET request to example server
+GET http://localhost:8081/api/semantic/semantic-search?query=what is chatclient in Spring AI?&topK=2
+
+###
