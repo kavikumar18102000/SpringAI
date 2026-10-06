@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 /*
@@ -62,12 +64,12 @@ class SemanticSearch {
         return new SimilarityResult(text1, text2, cosineSimilarity);
     }
 
-    @PostConstruct
+    /*@PostConstruct
     void seed(){
         vectorStore.add(List.of(
                 new Document("Spring AI provides a unified Java API for interacting with AI language models"),
                 new Document("ChatClient is the main interface for sending prompts and receiving responses from AI")
-                /*new Document("Advisors in Spring AI intercept and modify prompts and responses in a chain"),
+                *//*new Document("Advisors in Spring AI intercept and modify prompts and responses in a chain"),
                 new Document("VectorStore stores document embeddings for semantic similarity search"),
                 new Document("EmbeddingModel converts text into high-dimensional numerical vectors called embeddings"),
                 new Document("RAG stands for Retrieval Augmented Generation: retrieve relevant docs, then generate an answer"),
@@ -76,7 +78,30 @@ class SemanticSearch {
                 new Document("Structured output maps AI responses directly into Java records using entity()"),
                 new Document("Streaming responses use Flux to deliver tokens to the client as they are generated"),
                 new Document("SimpleVectorStore is an in-memory vector store backed by a ConcurrentHashMap"),
-                new Document("Cosine similarity measures the angle between two vectors: 1.0 means identical, 0.0 means unrelated")*/
+                new Document("Cosine similarity measures the angle between two vectors: 1.0 means identical, 0.0 means unrelated")*//*
+        ));
+    }*/
+
+    //adding metadata for more precise results
+    @PostConstruct
+    void seed() {
+        vectorStore.add(List.of(
+                /*new Document("Spring AI provides a unified Java API for AI models",
+                        Map.of("category", "framework")),
+                new Document("ChatClient is the main interface for sending prompts to AI",
+                        Map.of("category", "framework")),
+                new Document("VectorStore stores document embeddings for semantic search",
+                        Map.of("category", "framework")),
+                new Document("Your invoice is generated on the 1st of every month",
+                        Map.of("category", "billing")),
+                new Document("You can cancel your subscription from account settings",
+                        Map.of("category", "billing")),
+                new Document("Refunds are processed within 5-7 business days",
+                        Map.of("category", "billing")),*/
+                new Document("To reset your password click forgot password on login",
+                        Map.of("category", "account")),
+                new Document("Two factor authentication can be enabled in security settings",
+                        Map.of("category", "account"))
         ));
     }
 
@@ -92,6 +117,24 @@ class SemanticSearch {
                 .toList();
     }
 
+    @GetMapping("/semantic-search/metadata")
+    List<DocumentResult> metadataSearch(@RequestParam String query, @RequestParam(defaultValue = "4") int topK
+        ,@RequestParam String metaData){
+
+        SearchRequest.Builder request = SearchRequest.builder()
+                .query(query)
+                .topK(topK);
+
+        if (Objects.nonNull(metaData)){
+                request.filterExpression("category == '" + metaData + "'");
+        }
+
+        return vectorStore
+                .similaritySearch(request.build())
+                .stream()
+                .map(DocumentResult::documentResult)
+                .toList();
+    }
 
 
 }
