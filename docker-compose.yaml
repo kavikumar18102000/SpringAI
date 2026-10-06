@@ -1,6 +1,7 @@
 services:
   postgres:
-    image: postgres:18
+#    image: postgres:18
+    image: pgvector/pgvector:pg18 #changing to pg-vector database to store vectors
     container_name: spring_ai_demo
     restart: unless-stopped
 

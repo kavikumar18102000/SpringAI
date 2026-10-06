@@ -40,6 +40,8 @@ record DocumentResult(String id, String text, Double score){
 class SemanticSearch {
 
     private final EmbeddingModel embeddingModel;
+
+    //In memory storage to store vectors. NOT PERSISTENT
     private final VectorStore  vectorStore;
 
     SemanticSearch(OpenAiEmbeddingModel embeddingModel, VectorStore vectorStore) {

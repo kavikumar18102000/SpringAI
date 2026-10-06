@@ -17,6 +17,11 @@ spring:
     model:
       embedding: openai
 
+#config for storing vectors in DB(PERSISTENT DATA)
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+
     openai:
 #open AI config
       api-key: ${OPENAI_API_KEY}
