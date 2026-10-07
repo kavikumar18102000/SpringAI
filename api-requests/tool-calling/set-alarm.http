@@ -1,0 +1,4 @@
+### GET request to example server
+GET http://localhost:8081/api/tool-calling/dateTime?query=set an alarm for 10minuts, form now
+
+###
